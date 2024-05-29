@@ -25,6 +25,7 @@ export default function StyledText({
 const styles = StyleSheet.create({
     general: {
         fontSize: 24,
+        fontFamily: "OpenSans",
     },
     light_green: {
         color: colors.green200

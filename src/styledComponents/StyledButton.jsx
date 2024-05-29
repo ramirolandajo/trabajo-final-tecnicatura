@@ -3,15 +3,16 @@ import React from 'react'
 import {colors} from "../global/colors";
 
 export default function StyledButton({
-    onPress, font_colored, filled, text, ...props
+    onPress, font_colored, filled, OpenSansBold, text, ...props
 }) {
     const textStyles = [
         font_colored && styles.font_colored,
-        filled && styles.filled
+        filled && styles.filled,
+        OpenSansBold && styles.OpenSansBold
     ]
     return (
         <Pressable onPress={onPress} style={[styles.generalButton, filled && styles.filled]}>
-            <Text style={[textStyles, {...props}]}>{text}</Text>
+            <Text style={[textStyles, styles.generalText, {...props}]}>{text}</Text>
         </Pressable>
     )
 }
@@ -32,4 +33,11 @@ const styles = StyleSheet.create({
     filled: {
         backgroundColor: colors.green300
     },
+    generalText: {
+        fontSize: 24,
+        fontFamily: "OpenSans"
+    },
+    OpenSansBold: {
+        fontFamily: "OpenSansBold"
+    }
 })

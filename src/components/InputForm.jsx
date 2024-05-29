@@ -1,6 +1,8 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native'
 import React, {useState} from 'react'
 import {colors} from "../global/colors";
+import Card from "../styledComponents/Card";
+import StyledText from "../styledComponents/StyledText";
 
 export default function InputForm({label, error, onChange, isSecure}) {
     const [input, setInput] = useState("");
@@ -12,8 +14,8 @@ export default function InputForm({label, error, onChange, isSecure}) {
 
     return (
         <View style={styles.inputContainer}>
-            <Text style={styles.label}>{label}</Text>
-            <View style={{marginVertical: 30}}>
+            <StyledText size20 style={styles.label}>{label}</StyledText>
+            <Card style={{marginVertical: 30}}>
                 <TextInput
                     style={styles.input}
                     value={input}
@@ -21,7 +23,7 @@ export default function InputForm({label, error, onChange, isSecure}) {
                     secureTextEntry={isSecure}
 
                 />
-            </View>
+            </Card>
             {error ? <Text>* {error}</Text> : null}
         </View>
     )
@@ -33,14 +35,17 @@ const styles = StyleSheet.create({
     label: {
         position: "absolute",
         zIndex: 100,
-        backgroundColor: "white",
-        top: 10,
-        left: 15,
-        padding: 10
+        backgroundColor: "#FAFAFA",
+        top: 5,
+        left: 20,
+        padding: 10,
+        fontFamily: "OpenSans",
+        color: colors.green600
     },
     input: {
         padding: 5,
         fontSize: 20,
         color: colors.green600,
+        fontFamily: "OpenSans"
     }
 })

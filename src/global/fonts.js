@@ -1,3 +1,5 @@
 export const fonts = {
-    "Open Sans": require("../../assets/fonts/Open_Sans/static/OpenSans-Regular.ttf")
+    "OpenSans": require("../../assets/fonts/Open_Sans/static/OpenSans-Regular.ttf"),
+    "OpenSansBold": require("../../assets/fonts/Open_Sans/static/OpenSans-Bold.ttf"),
+    "RedditMono": require("../../assets/fonts/Reddit_Mono/static/RedditMono-Regular.ttf"),
 }

@@ -1,4 +1,4 @@
-import {Pressable, Text} from "react-native";
+import {Image, Pressable, Text} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useLoginMutation} from "../services/authService";
 import {useDispatch} from "react-redux";
@@ -12,6 +12,7 @@ import StyledScreenWrapper from "../styledComponents/StyledScreenWrapper";
 import StyledText from "../styledComponents/StyledText";
 import StyledButton from "../styledComponents/StyledButton";
 import ErrorMessage from "../components/ErrorMessage";
+import logo from "../../assets/images/greenLogo.png";
 
 export default function Login({navigation}) {
     const [email, setEmail] = useState("");
@@ -61,6 +62,7 @@ export default function Login({navigation}) {
             {!globalError ?
                 (!result.isLoading ? (
                     <>
+                        <Image source={logo} style={{width: 80, height: 80, marginBottom: 10}}/>
                         <StyledText size36 dark_green>Login</StyledText>
                         <InputForm label={"Email"} error={errorMail} onChange={setEmail}/>
                         <InputForm
@@ -71,8 +73,8 @@ export default function Login({navigation}) {
                         />
                         <Pressable onPress={() => navigation.navigate("SignUp")}
                                    style={{marginTop: 10, marginBottom: 20}}>
-                            <StyledText size20>Don't have an account?</StyledText>
-                            <StyledText size20 dark_green>Sign up!</StyledText>
+                            <StyledText size20>No tenes una cuenta?</StyledText>
+                            <StyledText size20 dark_green>Registrate!</StyledText>
                         </Pressable>
                         <StyledButton text={"Login"} onPress={onSubmit} filled/>
                     </>

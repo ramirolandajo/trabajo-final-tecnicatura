@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     general: {
         flex: 1,
         paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        backgroundColor: "#FAFAFA"
     },
     align_center: {
         alignItems: "center"
