@@ -1,7 +1,7 @@
 import {Button, StyleSheet, Text, View} from 'react-native'
 import React from 'react'
 
-export default function PinScreen({navigation}) {
+export default function SavedScreen({navigation}) {
     return (
         <View>
             <Text>PinScreen</Text>

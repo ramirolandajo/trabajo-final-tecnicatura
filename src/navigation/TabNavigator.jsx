@@ -1,15 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import React from 'react'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeStack from "./HomeStack";
-import PinStack from "./PinStack";
+import SavedStack from "./SavedStack";
 import GenerarReseniaStack from "./GenerarReseniaStack";
 import NotificacionesStack from "./NotificacionesStack";
-import AjustesScreen from "./AjustesStack";
-import {AntDesign, Feather, FontAwesome6, Ionicons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
+import {Feather, FontAwesome, FontAwesome6, MaterialIcons} from "@expo/vector-icons";
 import {colors} from "../global/colors";
-import MainHeader from "../components/MainHeader";
-import AjustesStack from "./AjustesStack";
+import PerfilStack from "./PerfilStack";
 
 export default function TabNavigator() {
     const Tab = createBottomTabNavigator();
@@ -29,20 +27,20 @@ export default function TabNavigator() {
                     tabBarIcon: ({focused}) => {
                         return (
                             <View>
-                                <Feather name="home" size={28} color={colors.green500} />
+                                <Feather name="home" size={28} color={colors.green500}/>
                             </View>
                         )
                     }
                 }}
             />
             <Tab.Screen
-                name={"PinTab"}
-                component={PinStack}
+                name={"SavedTab"}
+                component={SavedStack}
                 options={{
                     tabBarIcon: ({focused}) => {
                         return (
                             <View>
-                                <MaterialCommunityIcons name="pin-outline" size={30} color={colors.green500} />
+                                <FontAwesome name="bookmark-o" size={28} color={colors.green500}/>
                             </View>
                         )
                     }
@@ -54,7 +52,13 @@ export default function TabNavigator() {
                 options={{
                     tabBarIcon: ({focused}) => {
                         return (
-                            <View style={{borderWidth: 2, borderRadius: 10, borderColor: colors.green500, paddingVertical: 5, paddingHorizontal: 8}}>
+                            <View style={{
+                                borderWidth: 2,
+                                borderRadius: 10,
+                                borderColor: colors.green500,
+                                paddingVertical: 5,
+                                paddingHorizontal: 8
+                            }}>
                                 <FontAwesome6 name="add" size={30} color={colors.green500}/>
                             </View>
                         )
@@ -76,13 +80,13 @@ export default function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name={"AjustesTab"}
-                component={AjustesStack}
+                name={"PerfilStack"}
+                component={PerfilStack}
                 options={{
                     tabBarIcon: ({focused}) => {
                         return (
                             <View>
-                                <Feather name="settings" size={28} color={colors.green500} />
+                                <Feather name="user" size={30} color={colors.green500}/>
                             </View>
                         )
                     }

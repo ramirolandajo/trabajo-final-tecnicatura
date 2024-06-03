@@ -1,6 +1,7 @@
 import {Platform, SafeAreaView, StyleSheet} from 'react-native'
 import React from 'react'
 import Constants from "expo-constants";
+import {colors} from "../global/colors";
 
 export default function StyledScreenWrapper({children, align_center, justify_center, pdHorizontal16, noPadding, style}) {
     const viewStyle = [
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
         paddingHorizontal: 10,
-        backgroundColor: "#FAFAFA"
+        backgroundColor: colors.backgroundWhite
     },
     align_center: {
         alignItems: "center"

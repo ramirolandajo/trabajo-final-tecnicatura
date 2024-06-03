@@ -2,16 +2,16 @@ import {StyleSheet} from 'react-native'
 import React from 'react'
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import MainHeader from "../components/MainHeader";
-import PinScreen from "../screens/PinScreen";
+import SavedScreen from "../screens/SavedScreen";
 
-export default function PinStack() {
+export default function SavedStack() {
     const Stack = createNativeStackNavigator();
 
     return (
         <Stack.Navigator>
             <Stack.Screen
                 name={"Pin"}
-                component={PinScreen}
+                component={SavedScreen}
                 options={{
                     header: () => <MainHeader/>
                 }}

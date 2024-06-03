@@ -4,6 +4,7 @@ export const authSlice = createSlice({
     name: "auth",
     initialState: {
         value: {
+            name: null,
             user: null,
             token: null,
             imageCamera: null,
@@ -14,6 +15,7 @@ export const authSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             state.value = {
+                name: action.payload.name,
                 user: action.payload.email,
                 token: action.payload.idToken,
                 localId: action.payload.localId
@@ -34,6 +36,7 @@ export const authSlice = createSlice({
         },
         logout: (state) => {
             state.value = {
+                name: null,
                 user: null,
                 token: null,
                 imageCamera: null,
