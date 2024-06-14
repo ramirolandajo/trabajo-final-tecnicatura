@@ -6,8 +6,8 @@ import StyledText from "../styledComponents/StyledText";
 import {useDispatch, useSelector} from "react-redux";
 import {colors} from "../global/colors";
 
-export default function PerfilScreen() {
-    const {profileImage, imageCamera, user, name, localId} = useSelector((state) => state.authReducer.value);
+export default function PerfilScreen({navigation}) {
+    const {profileImage, imageCamera, nombreCompleto, nombreUsuario, localId} = useSelector((state) => state.authReducer.value);
     const [currentImage, setCurrentImage] = useState(null);
 
     const dispatch = useDispatch();
@@ -20,13 +20,20 @@ export default function PerfilScreen() {
     return (
         <StyledScreenWrapper>
             <View style={styles.user_container}>
-                <Image source={profile_icon} style={styles.profile_icon}/>
+                {profileImage || imageCamera ? (
+                    <Image
+                        source={{uri: currentImage}}
+                        style={styles.custom_image}
+                    />
+                ) : (
+                    <Image source={profile_icon} style={styles.profile_icon}/>
+                )}
                 <View style={{gap: 5}}>
-                    <StyledText bold>{name}Nombre usuario</StyledText>
-                    <StyledText size20>{user}</StyledText>
+                    <StyledText bold>{nombreCompleto}</StyledText>
+                    <StyledText size20>{nombreUsuario}</StyledText>
                 </View>
             </View>
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={() => navigation.navigate("EditarPerfil")}>
                 <StyledText size20 style={{textAlign: "center"}}>Editar Perfil</StyledText>
             </Pressable>
         </StyledScreenWrapper>
@@ -36,6 +43,11 @@ const styles = StyleSheet.create({
     profile_icon: {
         width: 80,
         height: 80,
+    },
+    custom_image: {
+        width: 100,
+        height: 100,
+        borderRadius: 1000
     },
     button: {
         borderRadius: 500,

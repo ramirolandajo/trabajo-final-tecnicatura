@@ -1,9 +1,8 @@
-import {Image, Pressable} from 'react-native'
+import {Image, Pressable, View} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import {useDispatch} from "react-redux";
 import {useSignUpMutation} from "../services/authService";
 import {signupSchema} from "../validations/signupSchema";
-import {setUser} from "../features/auth/authSlice";
 import InputForm from "../components/InputForm";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
@@ -52,36 +51,41 @@ export default function SignUp({navigation}) {
 
     useEffect(() => {
         if (result.data) {
-            dispatch(setUser(result.data));
+            console.log(result.data)
+            navigation.navigate("UserForm", {email: result.data.email, idToken: result.data.idToken, localId: result.data.localId});
         }
     }, [result]);
 
     return (
-        <StyledScreenWrapper align_center>
+        <StyledScreenWrapper>
             {!globalError ?
                 (!result.isLoading ? (
                     <>
-                        <Image source={logo} style={{width: 80, height: 80, marginBottom: 10}}/>
-                        <StyledText size30>Sign Up</StyledText>
-                        <InputForm label={"Email"} error={errorMail} onChange={setEmail}/>
-                        <InputForm
-                            label={"Password"}
-                            error={errorPassword}
-                            onChange={setPassword}
-                            isSecure={true}
-                        />
-                        <InputForm
-                            label={"Confirm password"}
-                            error={errorConfirmPassword}
-                            onChange={setConfirmPassword}
-                            isSecure={true}
-                        />
-                        <Pressable onPress={() => navigation.navigate("Login")}
-                                   style={{marginTop: 10, marginBottom: 20}}>
-                            <StyledText size20>Ya tenes una cuenta?</StyledText>
-                            <StyledText size20 light_blue>Inicia Sesion</StyledText>
-                        </Pressable>
-                        <StyledButton text={"Register"} onPress={onSubmit} filled orbitron_bold/>
+                        <View style={{flex: 1}}>
+                            <View style={{alignItems: "center"}}>
+                                <Image source={logo} style={{width: 80, height: 80, marginBottom: 10}}/>
+                                <StyledText size30>Sign Up</StyledText>
+                            </View>
+                            <InputForm label={"Email"} error={errorMail} onChange={setEmail}/>
+                            <InputForm
+                                label={"Password"}
+                                error={errorPassword}
+                                onChange={setPassword}
+                                isSecure={true}
+                            />
+                            <InputForm
+                                label={"Confirm password"}
+                                error={errorConfirmPassword}
+                                onChange={setConfirmPassword}
+                                isSecure={true}
+                            />
+                            <Pressable onPress={() => navigation.navigate("Login")}
+                                       style={{marginTop: 10, marginBottom: 20}}>
+                                <StyledText size20 style={{textAlign: "right"}}>Ya tenes una cuenta?</StyledText>
+                                <StyledText size20 light_blue style={{textAlign: "right"}}>Inicia Sesion</StyledText>
+                            </Pressable>
+                        </View>
+                        <StyledButton text={"Registrarse"} onPress={onSubmit} filled/>
                     </>
                 ) : (
                     <Loader/>
@@ -91,7 +95,7 @@ export default function SignUp({navigation}) {
                             errorCode={result.error.data.error.code}
                             errorMessage={result.error.data.error.message}
                         />
-                        <StyledButton text={"Go Back"} onPress={() => setGlobalError(false)} filled orbitron_bold/>
+                        <StyledButton text={"Go Back"} onPress={() => setGlobalError(false)} filled/>
                     </>
                 )}
 

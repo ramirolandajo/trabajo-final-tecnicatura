@@ -1,4 +1,4 @@
-import {Image, Pressable, Text} from "react-native";
+import {Image, Pressable, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useLoginMutation} from "../services/authService";
 import {useDispatch} from "react-redux";
@@ -13,6 +13,7 @@ import StyledText from "../styledComponents/StyledText";
 import StyledButton from "../styledComponents/StyledButton";
 import ErrorMessage from "../components/ErrorMessage";
 import logo from "../../assets/images/greenLogo.png";
+import {useGetUserDataQuery} from "../services/userService";
 
 export default function Login({navigation}) {
     const [email, setEmail] = useState("");
@@ -21,6 +22,7 @@ export default function Login({navigation}) {
     const [errorPassword, setErrorPassword] = useState("");
     const [globalError, setGlobalError] = useState(false);
     const [triggerLogin, result] = useLoginMutation();
+    const {data, error, isLoading} = useGetUserDataQuery();
 
     const dispatch = useDispatch();
 
@@ -29,7 +31,10 @@ export default function Login({navigation}) {
             setGlobalError(true)
         }
         if (result.data) {
-            dispatch(setUser(result.data));
+            const {email, idToken, localId} = {...result.data};
+            const {nombreCompleto, nombreUsuario} = {...data};
+
+            dispatch(setUser({email, idToken, localId, nombreCompleto, nombreUsuario}));
             insertSession({
                 email: result.data.email,
                 localId: result.data.localId,
@@ -43,6 +48,7 @@ export default function Login({navigation}) {
         try {
             loginSchema.validateSync({password, email});
             triggerLogin({email, password});
+
         } catch (err) {
             switch (err.path) {
                 case "email":
@@ -58,24 +64,33 @@ export default function Login({navigation}) {
     };
 
     return (
-        <StyledScreenWrapper align_center>
+        <StyledScreenWrapper>
             {!globalError ?
                 (!result.isLoading ? (
                     <>
-                        <Image source={logo} style={{width: 80, height: 80, marginBottom: 10}}/>
-                        <StyledText size36 dark_green>Login</StyledText>
-                        <InputForm label={"Email"} error={errorMail} onChange={setEmail}/>
-                        <InputForm
-                            label={"Password"}
-                            error={errorPassword}
-                            onChange={setPassword}
-                            isSecure={true}
-                        />
-                        <Pressable onPress={() => navigation.navigate("SignUp")}
-                                   style={{marginTop: 10, marginBottom: 20}}>
-                            <StyledText size20>No tenes una cuenta?</StyledText>
-                            <StyledText size20 dark_green>Registrate!</StyledText>
-                        </Pressable>
+                        <View style={{flex: 1}}>
+                            <View style={{alignItems: "center"}}>
+                                <Image source={logo} style={{width: 80, height: 80, marginBottom: 10}}/>
+                                <StyledText size36 dark_green>Login</StyledText>
+                            </View>
+                            <InputForm label={"Email"} error={errorMail} onChange={setEmail}/>
+                            <InputForm
+                                label={"Password"}
+                                error={errorPassword}
+                                onChange={setPassword}
+                                isSecure={true}
+                            />
+                            <Pressable onPress={() => navigation.navigate("SignUp")}
+                                       style={{marginTop: 10, marginBottom: 20}}
+                            >
+                                <StyledText size20 style={{textAlign: "right"}}>
+                                    No tenes una cuenta?
+                                </StyledText>
+                                <StyledText size20 dark_green style={{textAlign: "right"}}>
+                                    Registrate!
+                                </StyledText>
+                            </Pressable>
+                        </View>
                         <StyledButton text={"Login"} onPress={onSubmit} filled/>
                     </>
                 ) : (
