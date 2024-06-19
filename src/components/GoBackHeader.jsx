@@ -7,7 +7,6 @@ import {useNavigationState} from "@react-navigation/native";
 
 export default function GoBackHeader({navigation}) {
     const lastRoute = useNavigationState((state) => state.history)
-    console.log(lastRoute)
     return (
         <View style={styles.container}>
             <Pressable onPress={() => navigation.goBack()}>

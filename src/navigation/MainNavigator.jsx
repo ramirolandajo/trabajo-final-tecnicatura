@@ -26,7 +26,6 @@ export default function MainNavigator() {
                 console.log(error.message);
             }
         })();
-
     }, []);
 
     return (

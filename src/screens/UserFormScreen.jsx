@@ -20,9 +20,7 @@ export default function UserFormScreen({navigation, route}) {
     const dispatch = useDispatch();
 
     function handleSubmit() {
-        console.log({email, localId, nombreCompleto, nombreUsuario})
         triggerSaveUser({email, localId, nombreCompleto, nombreUsuario})
-        console.log(result)
     }
 
     useEffect(() => {

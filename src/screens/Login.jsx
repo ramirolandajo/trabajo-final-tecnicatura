@@ -1,7 +1,7 @@
 import {Image, Pressable, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useLoginMutation} from "../services/authService";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../features/auth/authSlice";
 import {loginSchema} from "../validations/loginSchema";
 
@@ -16,13 +16,13 @@ import logo from "../../assets/images/greenLogo.png";
 import {useGetUserDataQuery} from "../services/userService";
 
 export default function Login({navigation}) {
+    const {localId} = useSelector((state) => state.authReducer.value)
     const [email, setEmail] = useState("");
     const [errorMail, setErrorMail] = useState("");
     const [password, setPassword] = useState("");
     const [errorPassword, setErrorPassword] = useState("");
     const [globalError, setGlobalError] = useState(false);
     const [triggerLogin, result] = useLoginMutation();
-    const {data, error, isLoading} = useGetUserDataQuery();
 
     const dispatch = useDispatch();
 
@@ -32,15 +32,7 @@ export default function Login({navigation}) {
         }
         if (result.data) {
             const {email, idToken, localId} = {...result.data};
-            const {nombreCompleto, nombreUsuario} = {...data};
-
-            dispatch(setUser({email, idToken, localId, nombreCompleto, nombreUsuario}));
-            insertSession({
-                email: result.data.email,
-                localId: result.data.localId,
-                token: result.data.idToken
-            })
-                .catch(err => console.log(err.message))
+            dispatch(setUser({email, idToken, localId}));
         }
     }, [result]);
 

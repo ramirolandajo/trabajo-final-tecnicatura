@@ -1,9 +1,9 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {base_url} from "../firebase/fbDatabase";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { base_url } from "../firebase/fbDatabase";
 
 export const userApi = createApi({
     reducerPath: "userApi",
-    baseQuery: fetchBaseQuery({baseUrl: base_url}),
+    baseQuery: fetchBaseQuery({ baseUrl: base_url }),
     endpoints: (builder) => ({
         getProfileImage: builder.query({
             query: (localId) => `profileImages/${localId}.json`,
@@ -18,25 +18,29 @@ export const userApi = createApi({
             }),
         }),
         getUserData: builder.query({
-            query: (localId) => `users/${localId}.json`,
+            query: (localId) => `users.json?orderBy=%22localId%22&equalTo=%22${localId}%22`,
+            transformResponse: (response) => {
+                const userId = Object.keys(response)[0];
+                return response[userId];
+            }
         }),
         postUser: builder.mutation({
-            query: ({...user}) => ({
+            query: ({ ...user }) => ({
                 url: `users.json`,
                 method: "POST",
                 body: user
             })
         }),
-        postUserFollowing: builder.mutation(({
-            query: ({localId, newFollowing, listFollowing}) => ({
-                url: `users/${localId}json`,
+        postUserFollowing: builder.mutation({
+            query: ({ localId, newFollowing, listFollowing }) => ({
+                url: `users/${localId}.json`,
                 method: "PATCH",
                 body: {
-                    listFollowing: ({...listFollowing, newFollowing})
+                    listFollowing: { ...listFollowing, newFollowing }
                 }
             })
-        }))
+        })
     })
-})
+});
 
-export const {usePostProfileImageMutation, usePostUserMutation, usePostUserFollowing, useGetUserDataQuery} = userApi
+export const { usePostProfileImageMutation, usePostUserMutation, usePostUserFollowingMutation, useGetUserDataQuery } = userApi;

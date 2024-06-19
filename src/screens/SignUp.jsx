@@ -51,7 +51,6 @@ export default function SignUp({navigation}) {
 
     useEffect(() => {
         if (result.data) {
-            console.log(result.data)
             navigation.navigate("UserForm", {email: result.data.email, idToken: result.data.idToken, localId: result.data.localId});
         }
     }, [result]);
