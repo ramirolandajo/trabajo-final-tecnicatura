@@ -3,7 +3,7 @@ import {Provider} from "react-redux";
 import store from "./src/store/index"
 import {useFonts} from "expo-font";
 import {fonts} from "./src/global/fonts"
-import {init} from "./src/db";
+import {dropTable, init} from "./src/db";
 
 init()
     .catch((err) => {

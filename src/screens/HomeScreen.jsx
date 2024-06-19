@@ -1,31 +1,44 @@
 import {FlatList, StyleSheet} from 'react-native'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import StyledScreenWrapper from "../styledComponents/StyledScreenWrapper";
 import ReseniaCard from "../components/ReseniaCard";
 import {useDispatch, useSelector} from "react-redux";
-import {useGetUserDataQuery} from "../services/userService";
-import {insertSession} from "../db";
+import {useGetReseniasQuery, useGetUserDataQuery} from "../services/userService";
+import {insertUserData} from "../db";
 import {setUserData} from "../features/auth/authSlice";
+import {useFocusEffect} from "@react-navigation/native";
+import StyledText from "../styledComponents/StyledText";
 
 export default function HomeScreen({navigation}) {
     const {user, localId, token} = useSelector((state) => state.authReducer.value);
-    const {data} = useGetUserDataQuery(localId);
+    const {data: userData} = useGetUserDataQuery(localId);
+    const {data: reseniasData, refetch} = useGetReseniasQuery();
+    const [resenias, setResenias] = useState([]);
+
     const dispatch = useDispatch();
 
+    useFocusEffect(() => {
+        refetch()
+    })
+
     useEffect(() => {
-        if (data) {
-            const {nombreCompleto, nombreUsuario} = {...data}
+        if (userData) {
+            const {nombreCompleto, nombreUsuario} = {...userData}
             dispatch(setUserData({nombreCompleto, nombreUsuario}))
-            console.log({user, localId, token, nombreCompleto, nombreUsuario})
-            insertSession({
-                user: user,
-                localId: localId,
-                token: token,
+            insertUserData({
                 nombreCompleto: nombreCompleto,
-                nombreUsuario: nombreUsuario
+                nombreUsuario: nombreUsuario,
+                localId: localId
             }).catch(err => console.log(err));
         }
-    }, [data]);
+    }, [userData]);
+
+    useEffect(() => {
+        if (reseniasData) {
+            const reseniasRaw = Object.values(reseniasData)
+            setResenias(reseniasRaw)
+        }
+    }, [reseniasData]);
 
     const fakeData = [
         {
@@ -98,16 +111,19 @@ export default function HomeScreen({navigation}) {
         },
     ]
 
-
     return (
         <StyledScreenWrapper>
-            <FlatList
-                data={fakeData}
-                renderItem={({item}) => (
-                    <ReseniaCard navigation={navigation} resenia={item}/>
-                )}
-                showsVerticalScrollIndicator={false}
-            />
+            {!reseniasData? (
+                <StyledText>No hay resenias para mostrar...</StyledText>
+            ):(
+                <FlatList
+                    data={resenias}
+                    renderItem={({item}) => (
+                        <ReseniaCard navigation={navigation} resenia={item}/>
+                    )}
+                    showsVerticalScrollIndicator={false}
+                />
+            )}
         </StyledScreenWrapper>
     )
 }

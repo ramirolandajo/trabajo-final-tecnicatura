@@ -7,7 +7,6 @@ export default function EditarPerfilScreen({navigation}) {
     return (
         <StyledScreenWrapper align_center justify_center>
             <StyledButton text={"Cambiar foto perfil"} filled onPress={() => navigation.navigate("CambiarFotoPerfil")}/>
-            <StyledButton text={"Cambiar nombre usuario"} filled/>
         </StyledScreenWrapper>
     )
 }

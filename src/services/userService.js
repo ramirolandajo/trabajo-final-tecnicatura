@@ -39,8 +39,18 @@ export const userApi = createApi({
                     listFollowing: { ...listFollowing, newFollowing }
                 }
             })
+        }),
+        postResenia: builder.mutation(({
+            query: ({...resenia}) => ({
+                url: `resenias.json`,
+                method: "POST",
+                body: resenia
+            })
+        })),
+        getResenias: builder.query({
+            query: () => 'resenias.json'
         })
     })
 });
 
-export const { usePostProfileImageMutation, usePostUserMutation, usePostUserFollowingMutation, useGetUserDataQuery } = userApi;
+export const { usePostProfileImageMutation, usePostUserMutation, usePostUserFollowingMutation, useGetUserDataQuery, usePostReseniaMutation, useGetReseniasQuery, useGetProfileImageQuery } = userApi;

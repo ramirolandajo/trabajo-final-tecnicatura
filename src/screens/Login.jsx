@@ -4,19 +4,16 @@ import {useLoginMutation} from "../services/authService";
 import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../features/auth/authSlice";
 import {loginSchema} from "../validations/loginSchema";
-
 import InputForm from "../components/InputForm";
 import Loader from "../components/Loader";
-import {insertSession} from "../db";
 import StyledScreenWrapper from "../styledComponents/StyledScreenWrapper";
 import StyledText from "../styledComponents/StyledText";
 import StyledButton from "../styledComponents/StyledButton";
 import ErrorMessage from "../components/ErrorMessage";
 import logo from "../../assets/images/greenLogo.png";
-import {useGetUserDataQuery} from "../services/userService";
+import {insertSession} from "../db";
 
 export default function Login({navigation}) {
-    const {localId} = useSelector((state) => state.authReducer.value)
     const [email, setEmail] = useState("");
     const [errorMail, setErrorMail] = useState("");
     const [password, setPassword] = useState("");
@@ -33,6 +30,11 @@ export default function Login({navigation}) {
         if (result.data) {
             const {email, idToken, localId} = {...result.data};
             dispatch(setUser({email, idToken, localId}));
+            // insertSession({
+            //     user: email,
+            //     localId: localId,
+            //     token: idToken
+            // }).catch(err => console.error(err))
         }
     }, [result]);
 

@@ -4,13 +4,13 @@ import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import {colors} from "../global/colors";
 import Constants from "expo-constants";
 
-export default function GenerarReseniaHeader({navigation}) {
+export default function GenerarReseniaHeader({navigation, onSumbit}) {
     return (
         <View style={styles.container}>
             <Pressable onPress={() => navigation.navigate("Home")}>
                 <MaterialCommunityIcons name="window-close" size={30} color="white" />
             </Pressable>
-            <Pressable style={styles.subirButton}>
+            <Pressable style={styles.subirButton} onPress={onSumbit}>
                 <Text style={{fontSize: 16}}>Subir</Text>
             </Pressable>
         </View>

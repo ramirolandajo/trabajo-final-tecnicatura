@@ -22,7 +22,7 @@ export default function CambiarFotoPerfilScreen({navigation}) {
     const takePictureAsync = async () => {
         const isCameraOk = await verifyCameraPermissions();
         if (isCameraOk) {
-            let result = await ImagePicker.launchCameraAsync({
+            let resultCamera = await ImagePicker.launchCameraAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
                 allowsEditing: true,
                 aspect: [9, 16],
@@ -31,22 +31,25 @@ export default function CambiarFotoPerfilScreen({navigation}) {
             });
 
             if (!result.canceled) {
-                setImage(result.assets[0].uri);
+                setImage(resultCamera.assets[0].uri);
             }
         }
     };
 
     const pickImageAsync = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            allowsEditing: true,
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            aspect: [9, 16],
-            base64: true,
-            quality: 1,
-        });
+        const isFileSystemOk = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (isFileSystemOk) {
+            let resultFile = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                aspect: [9, 16],
+                base64: true,
+                quality: 1,
+            });
 
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            if (!result.canceled) {
+                setImage(resultFile.assets[0].uri);
+            }
         }
     };
 
@@ -61,14 +64,14 @@ export default function CambiarFotoPerfilScreen({navigation}) {
             {image ? (
                 <>
                     <Image source={{uri: image}} style={styles.image}/>
-                    <StyledButton onPress={() => setImage(null)} text={"Cambiar foto"} />
-                    <StyledButton onPress={confirmImage} text={"Confirmar foto"} filled />
+                    <StyledButton onPress={() => setImage(null)} text={"Cambiar foto"}/>
+                    <StyledButton onPress={confirmImage} text={"Confirmar foto"} filled/>
                 </>
             ) : (
                 <View style={styles.noPhotoContainer}>
                     <StyledText size28>No photo to show...</StyledText>
-                    <StyledButton text={"Open gallery"} onPress={pickImageAsync} filled />
-                    <StyledButton text={"Take a photo"} onPress={takePictureAsync} font_colored />
+                    <StyledButton text={"Open gallery"} onPress={pickImageAsync} filled/>
+                    <StyledButton text={"Take a photo"} onPress={takePictureAsync} font_colored/>
                 </View>
             )}
         </StyledScreenWrapper>
