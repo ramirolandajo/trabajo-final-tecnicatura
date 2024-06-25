@@ -5,11 +5,13 @@ import {colors} from "../global/colors";
 import StyledText from "../styledComponents/StyledText";
 import {AntDesign, FontAwesome, FontAwesome5} from "@expo/vector-icons";
 import {useGetProfileImageQuery, usePostSaveReseniaMutation} from "../services/userService";
+import {useSelector} from "react-redux";
 
 export default function ReseniaCard({resenia, navigation}) {
     const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
     const [profileImage, setProfileImage] = useState(null);
+    const {localId} = useSelector((state) => state.authReducer.value)
     const {data, error, isLoading} = useGetProfileImageQuery(resenia.localId);
     const [triggerPostSaveResenia, result] = usePostSaveReseniaMutation();
 
@@ -30,10 +32,8 @@ export default function ReseniaCard({resenia, navigation}) {
 
     function handleSaved() {
         setSaved(!saved);
-        console.log("RESENIA\n")
-        console.log(resenia.localId)
-        console.log(resenia)
-        triggerPostSaveResenia(resenia)
+
+        triggerPostSaveResenia({localId, resenia})
     }
 
     return (

@@ -51,8 +51,8 @@ export const userApi = createApi({
             query: () => 'resenias.json'
         }),
         postSaveResenia: builder.mutation({
-            query: ({...resenia}) => ({
-                url: `savedResenias/${resenia.localId}.json`,
+            query: ({localId, resenia}) => ({
+                url: `savedResenias/${localId}.json`,
                 method: "POST",
                 body: resenia
             })
