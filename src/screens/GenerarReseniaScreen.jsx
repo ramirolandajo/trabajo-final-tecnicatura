@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native'
+import {Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import GenerarReseniaHeader from "../components/GenerarReseniaHeader";
 import StyledScreenWrapper from "../styledComponents/StyledScreenWrapper";
@@ -6,8 +6,8 @@ import {colors} from "../global/colors";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useSelector} from "react-redux";
 import {usePostReseniaMutation} from "../services/userService";
-import StyledButton from "../styledComponents/StyledButton";
 import StyledText from "../styledComponents/StyledText";
+import * as ImagePicker from "expo-image-picker";
 
 export default function GenerarReseniaScreen({navigation}) {
     const [titulo, setTitulo] = useState("");
@@ -21,6 +21,25 @@ export default function GenerarReseniaScreen({navigation}) {
     const [triggerPostResenia, result] = usePostReseniaMutation();
     const [globalError, setGlobalError] = useState(false);
     const [reseniaSubida, setReseniaSubida] = useState(false);
+    const [imagen, setImagen] = useState(null)
+
+    const pickImageAsync = async () => {
+        const isFileSystemOk = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (isFileSystemOk) {
+            let resultFile = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                aspect: [9, 16],
+                base64: true,
+                quality: 1,
+            });
+
+            if (!result.canceled) {
+                setImagen(resultFile.assets[0].uri);
+            }
+        }
+    };
+
     const {user, localId, nombreCompleto, nombreUsuario} = useSelector((state) => state.authReducer.value)
 
     function handleSubmit() {
@@ -39,7 +58,8 @@ export default function GenerarReseniaScreen({navigation}) {
             puntajeAtencion,
             puntajeHigiene,
             puntajeSeguridad,
-            puntajeGeneral
+            puntajeGeneral,
+            imagen
         }
         triggerPostResenia(resenia)
     }
@@ -58,6 +78,7 @@ export default function GenerarReseniaScreen({navigation}) {
             setPuntajeAtencion(0)
             setPuntajeHigiene(0)
             setPuntajeSeguridad(0)
+            setImagen(null)
         }
     }, [result]);
 
@@ -75,7 +96,7 @@ export default function GenerarReseniaScreen({navigation}) {
         <>
             {!globalError ? (
                 !reseniaSubida ? (
-                    <>
+                    <ScrollView>
                         <GenerarReseniaHeader navigation={navigation} onSumbit={() => handleSubmit()}/>
                         <StyledScreenWrapper noPadding>
                             <TextInput
@@ -158,12 +179,17 @@ export default function GenerarReseniaScreen({navigation}) {
                                     />
                                 </View>
                             </View>
-                            <Pressable>
-                                <MaterialCommunityIcons name="file-image-plus" size={50} color="black"
-                                                        style={{marginTop: 10, marginLeft: 10}}/>
-                            </Pressable>
+                            <View style={{flexDirection: "row", gap: 20}}>
+                                <Pressable onPress={() => pickImageAsync()}>
+                                    <MaterialCommunityIcons name="file-image-plus" size={50} color="black"
+                                                            style={{marginTop: 10, marginLeft: 10}}/>
+                                </Pressable>
+                                {imagen ? (
+                                    <Image source={{uri: imagen}} style={{height: 250, width: 250}}/>
+                                ) : null}
+                            </View>
                         </StyledScreenWrapper>
-                    </>
+                    </ScrollView>
                 ) : (
                     <>
                         <StyledScreenWrapper align_center justify_center>

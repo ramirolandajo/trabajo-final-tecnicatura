@@ -1,8 +1,8 @@
 import {Image, Pressable, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useLoginMutation} from "../services/authService";
-import {useDispatch, useSelector} from "react-redux";
-import {setUser} from "../features/auth/authSlice";
+import {useDispatch} from "react-redux";
+import {setUser, setUserData} from "../features/auth/authSlice";
 import {loginSchema} from "../validations/loginSchema";
 import InputForm from "../components/InputForm";
 import Loader from "../components/Loader";
@@ -12,6 +12,7 @@ import StyledButton from "../styledComponents/StyledButton";
 import ErrorMessage from "../components/ErrorMessage";
 import logo from "../../assets/images/greenLogo.png";
 import {insertSession} from "../db";
+import {useGetUserDataQuery} from "../services/userService";
 
 export default function Login({navigation}) {
     const [email, setEmail] = useState("");
@@ -20,6 +21,8 @@ export default function Login({navigation}) {
     const [errorPassword, setErrorPassword] = useState("");
     const [globalError, setGlobalError] = useState(false);
     const [triggerLogin, result] = useLoginMutation();
+    const [id, setId] = useState("");
+    const {data: userData} = useGetUserDataQuery(id);
 
     const dispatch = useDispatch();
 
@@ -28,15 +31,31 @@ export default function Login({navigation}) {
             setGlobalError(true)
         }
         if (result.data) {
-            const {email, idToken, localId} = {...result.data};
-            dispatch(setUser({email, idToken, localId}));
-            // insertSession({
-            //     user: email,
-            //     localId: localId,
-            //     token: idToken
-            // }).catch(err => console.error(err))
+            const {localId} = {...result.data};
+            setId(localId)
         }
     }, [result]);
+
+    useEffect(() => {
+        const initializeUser = async () => {
+            try {
+                if (userData) {
+                    await insertSession({
+                        user: result.data.email,
+                        localId: result.data.localId,
+                        token: result.data.idToken,
+                        nombreCompleto: userData.nombreCompleto,
+                        nombreUsuario: userData.nombreUsuario
+                    }).catch(err => console.error(err))
+                    dispatch(setUserData(userData))
+                    dispatch(setUser(result.data));
+                }
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        initializeUser().catch(err => console.error(err));
+    }, [userData, result])
 
     const onSubmit = () => {
         try {
@@ -50,8 +69,6 @@ export default function Login({navigation}) {
                     break;
                 case "password":
                     setErrorPassword(err.message);
-                    break;
-                default:
                     break;
             }
         }

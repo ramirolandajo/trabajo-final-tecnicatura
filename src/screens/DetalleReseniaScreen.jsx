@@ -1,11 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native'
 import React from 'react'
+import StyledScreenWrapper from "../styledComponents/StyledScreenWrapper";
+import DetalleReseniaCard from "../components/DetalleReseniaCard";
 
-export default function DetalleReseniaScreen() {
+export default function DetalleReseniaScreen({route, navigation}) {
+    const {resenia} = route.params;//devuelve void
+
     return (
-        <View>
-            <Text>DetalleReseniaScreen</Text>
-        </View>
+        <StyledScreenWrapper>
+            <DetalleReseniaCard resenia={resenia}/>
+        </StyledScreenWrapper>
     )
 }
-const styles = StyleSheet.create({})

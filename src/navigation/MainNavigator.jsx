@@ -7,7 +7,7 @@ import {StatusBar} from "expo-status-bar";
 import {colors} from "../global/colors";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSession} from "../db";
-import {setProfileImage, setUser} from "../features/auth/authSlice";
+import {setProfileImage, setUser, setUserData} from "../features/auth/authSlice";
 import {useGetProfileImageQuery} from "../services/userService";
 
 export default function MainNavigator() {
@@ -20,11 +20,15 @@ export default function MainNavigator() {
         (async () => {
             try {
                 const session = await fetchSession();
-                console.log(session)
                 if (session?.rows.length) {
-                    const user = session.rows._array[0];
-                    console.log(session)
-                    dispatch(setUser(user));
+                    const userDb = session.rows._array[0];
+                    const email = userDb.user
+                    const idToken = userDb.token
+                    const localId = userDb.localId
+                    const nombreCompleto = userDb.nombreCompleto
+                    const nombreUsuario = userDb.nombreUsuario
+                    dispatch(setUser({email, idToken, localId}));
+                    dispatch(setUserData({nombreCompleto, nombreUsuario}))
                 }
             } catch (error) {
                 console.log(error.message);

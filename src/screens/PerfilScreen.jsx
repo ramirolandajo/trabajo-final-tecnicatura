@@ -3,14 +3,12 @@ import React, {useEffect, useState} from 'react'
 import StyledScreenWrapper from "../styledComponents/StyledScreenWrapper";
 import profile_icon from "../../assets/images/profile_icon_placeholder.png"
 import StyledText from "../styledComponents/StyledText";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {colors} from "../global/colors";
 
 export default function PerfilScreen({navigation}) {
-    const {profileImage, imageCamera, nombreCompleto, nombreUsuario, localId} = useSelector((state) => state.authReducer.value);
+    const {profileImage, imageCamera, nombreCompleto, nombreUsuario} = useSelector((state) => state.authReducer.value);
     const [currentImage, setCurrentImage] = useState(null);
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         setCurrentImage(imageCamera ? imageCamera : profileImage)
@@ -57,8 +55,8 @@ const styles = StyleSheet.create({
     },
     user_container: {
         flexDirection: "row",
-        gap: 20,
         alignItems: "center",
-        marginBottom: 30
+        marginBottom: 30,
+        gap: 20
     }
 })

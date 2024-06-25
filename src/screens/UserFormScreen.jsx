@@ -55,8 +55,8 @@ export default function UserFormScreen({navigation, route}) {
             ) : (
                 <>
                     <ErrorMessage
-                        errorCode={resultSaveUser.error.data.error.code}
-                        errorMessage={resultSaveUser.error.data.error.message}
+                        errorCode={result.error.data.error.code}
+                        errorMessage={result.error.data.error.message}
                     />
                     <StyledButton text={"Go Back"} onPress={() => setGlobalError(false)} filled/>
                 </>

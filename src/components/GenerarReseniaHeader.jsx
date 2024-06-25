@@ -7,7 +7,7 @@ import Constants from "expo-constants";
 export default function GenerarReseniaHeader({navigation, onSumbit}) {
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => navigation.navigate("Home")}>
+            <Pressable onPress={() => navigation.goBack()}>
                 <MaterialCommunityIcons name="window-close" size={30} color="white" />
             </Pressable>
             <Pressable style={styles.subirButton} onPress={onSumbit}>

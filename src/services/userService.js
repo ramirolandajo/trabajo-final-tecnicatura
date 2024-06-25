@@ -40,17 +40,27 @@ export const userApi = createApi({
                 }
             })
         }),
-        postResenia: builder.mutation(({
+        postResenia: builder.mutation({
             query: ({...resenia}) => ({
                 url: `resenias.json`,
                 method: "POST",
                 body: resenia
             })
-        })),
+        }),
         getResenias: builder.query({
             query: () => 'resenias.json'
+        }),
+        postSaveResenia: builder.mutation({
+            query: ({...resenia}) => ({
+                url: `savedResenias/${resenia.localId}.json`,
+                method: "POST",
+                body: resenia
+            })
+        }),
+        getSavedResenias: builder.query({
+            query: (localId) => `savedResenias/${localId}.json`
         })
     })
 });
 
-export const { usePostProfileImageMutation, usePostUserMutation, usePostUserFollowingMutation, useGetUserDataQuery, usePostReseniaMutation, useGetReseniasQuery, useGetProfileImageQuery } = userApi;
+export const { usePostProfileImageMutation, usePostUserMutation, usePostUserFollowingMutation, useGetUserDataQuery, usePostReseniaMutation, useGetReseniasQuery, useGetProfileImageQuery, usePostSaveReseniaMutation, useGetSavedReseniasQuery } = userApi;
