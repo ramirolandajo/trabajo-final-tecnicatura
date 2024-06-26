@@ -4,6 +4,7 @@ import MainHeader from "../components/MainHeader";
 import HomeScreen from "../screens/HomeScreen";
 import DetalleReseniaScreen from "../screens/DetalleReseniaScreen";
 import BuscarScreen from "../screens/BuscarScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,10 +26,13 @@ export default function HomeStack() {
             <Stack.Screen
                 name={"BuscarScreen"}
                 component={BuscarScreen}
+                options={{
+                    headerShown: false
+                }}
             />
             <Stack.Screen
                 name={"SettingsScreen"}
-                component={BuscarScreen}
+                component={SettingsScreen}
             />
         </Stack.Navigator>
     )

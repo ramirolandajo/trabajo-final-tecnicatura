@@ -9,7 +9,9 @@ import * as RootNavigation from '../navigation/RootNavigation';
 export default function MainHeader() {
     return (
         <View style={styles.container}>
-            <Feather name="settings" size={32} color={colors.green500}/>
+            <Pressable onPress={() => RootNavigation.navigate("SettingsScreen")}>
+                <Feather name="settings" size={32} color={colors.green500}/>
+            </Pressable>
             <Image source={green_logo} style={styles.logo}/>
             <Pressable onPress={() => RootNavigation.navigate("BuscarScreen")}>
                 <Feather name="search" size={34} color={colors.green500}/>

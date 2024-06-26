@@ -66,4 +66,4 @@ export const userApi = createApi({
     })
 });
 
-export const { usePostProfileImageMutation, usePostUserMutation, usePostUserFollowingMutation, useGetUserDataQuery, usePostReseniaMutation, useGetReseniasQuery, useGetProfileImageQuery, usePostSaveReseniaMutation, useGetSavedReseniasQuery } = userApi;
+export const { usePostProfileImageMutation, usePostUserMutation, usePostUserFollowingMutation, useGetUserDataQuery, usePostReseniaMutation, useGetReseniasQuery, useGetProfileImageQuery, usePostSaveReseniaMutation, useGetSavedReseniasQuery, useGetUsersQuery } = userApi;

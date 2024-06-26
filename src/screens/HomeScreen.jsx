@@ -8,11 +8,8 @@ import {useFocusEffect} from "@react-navigation/native";
 import StyledText from "../styledComponents/StyledText";
 
 export default function HomeScreen({navigation}) {
-    const {user, localId, token} = useSelector((state) => state.authReducer.value);
     const {data: reseniasData, refetch} = useGetReseniasQuery();
     const [resenias, setResenias] = useState([]);
-
-    const dispatch = useDispatch();
 
     useFocusEffect(
         useCallback(() => {
