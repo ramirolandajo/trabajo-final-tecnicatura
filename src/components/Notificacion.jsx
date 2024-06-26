@@ -7,9 +7,9 @@ export default function Notificacion({user,msj}){
     return(
         <StyledScreenWrapper>
             <View style={styles.notificacion}>
-                <Text>{user}</Text>
+                <Text style={styles.texto}>{user}</Text>
 
-                <Text> {msj}</Text>
+                <Text style={styles.texto}>{msj}</Text>
             </View>
         </StyledScreenWrapper>
     )
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     },
 
     texto:{
-        fontSize: 20
+        fontSize: 15,
+
     }
 })

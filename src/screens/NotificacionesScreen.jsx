@@ -14,28 +14,28 @@ export default function NotificacionesScreen() {
 
             <Notificacion
                 user={"Lucas"}
-                msj={"ha comentado tu reseña"}
+                msj={" ha comentado tu reseña"}
             />
 
 
             <Notificacion
                 user={"Martina"}
-                msj={"ha comenzado a seguirte"}
+                msj={" ha comenzado a seguirte"}
             />
 
             <Notificacion
                 user={"Sebas"}
-                msj={"le ha dado like a tu comentario"}
+                msj={" le ha dado like a tu comentario"}
             />
 
             <Notificacion
                 user={"Selena"}
-                msj={"ha comenzado a seguirte"}
+                msj={" ha comenzado a seguirte"}
             />
 
             <Notificacion
                 user={"Mateo"}
-                msj={"ha comentado tu reseña"}
+                msj={" ha comentado tu reseña"}
             />
 
             <Notificacion
@@ -45,12 +45,12 @@ export default function NotificacionesScreen() {
 
             <Notificacion
                 user={"Mati"}
-                msj={"ha comenzado a seguirte"}
+                msj={" ha comenzado a seguirte"}
             />
 
             <Notificacion
                 user={"Ivo"}
-                msj={"le ha dado like a tu comentario"}
+                msj={" le ha dado like a tu comentario"}
             />
             
         </StyledScreenWrapper>
