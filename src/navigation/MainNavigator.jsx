@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchSession} from "../db";
 import {setProfileImage, setUser, setUserData} from "../features/auth/authSlice";
 import {useGetProfileImageQuery} from "../services/userService";
+import {navigationRef} from "./RootNavigation";
 
 export default function MainNavigator() {
     const {user, localId} = useSelector((state) => state.authReducer.value)
@@ -43,7 +44,7 @@ export default function MainNavigator() {
     }, [data])
 
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
             {user? <TabNavigator/> : <AuthStack/>}
             <StatusBar backgroundColor={colors.green200}/>
         </NavigationContainer>

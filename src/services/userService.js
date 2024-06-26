@@ -59,6 +59,9 @@ export const userApi = createApi({
         }),
         getSavedResenias: builder.query({
             query: (localId) => `savedResenias/${localId}.json`
+        }),
+        getUsers: builder.query({
+            query: () => `users.json`
         })
     })
 });

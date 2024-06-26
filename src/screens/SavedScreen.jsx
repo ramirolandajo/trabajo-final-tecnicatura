@@ -32,11 +32,11 @@ export default function SavedScreen({navigation}) {
             <FlatList
                 data={savedReseniasData}
                 renderItem={({item}) => (
-                    <ReseniaCard resenia={item}/>
+                    <ReseniaCard resenia={item} navigation={navigation}/>
                 )}
                 keyExtractor={item => item.cuerpo}
+                showsVerticalScrollIndicator={false}
             />
         </StyledScreenWrapper>
     )
 }
-const styles = StyleSheet.create({})

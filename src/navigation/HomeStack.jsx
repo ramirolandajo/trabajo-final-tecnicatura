@@ -1,9 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native'
 import React from 'react'
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import MainHeader from "../components/MainHeader";
 import HomeScreen from "../screens/HomeScreen";
 import DetalleReseniaScreen from "../screens/DetalleReseniaScreen";
+import BuscarScreen from "../screens/BuscarScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +22,14 @@ export default function HomeStack() {
                 name={"DetalleResenia"}
                 component={DetalleReseniaScreen}
             />
+            <Stack.Screen
+                name={"BuscarScreen"}
+                component={BuscarScreen}
+            />
+            <Stack.Screen
+                name={"SettingsScreen"}
+                component={BuscarScreen}
+            />
         </Stack.Navigator>
     )
 }
-const styles = StyleSheet.create({})

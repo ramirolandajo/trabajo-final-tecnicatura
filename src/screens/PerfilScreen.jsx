@@ -34,6 +34,23 @@ export default function PerfilScreen({navigation}) {
             <Pressable style={styles.button} onPress={() => navigation.navigate("EditarPerfil")}>
                 <StyledText size20 style={{textAlign: "center"}}>Editar Perfil</StyledText>
             </Pressable>
+            <View style={{gap: 20, flexDirection: "row", justifyContent: "space-between", backgroundColor: colors.green200, padding: 20, borderRadius: 10, marginTop: 20}}>
+                <View style={{alignItems: "center"}}>
+                    <StyledText bold>Seguidores</StyledText>
+                    <StyledText>1024</StyledText>
+                </View>
+                <View style={{alignItems: "center"}}>
+                    <StyledText bold>Seguidos</StyledText>
+                    <StyledText>514</StyledText>
+                </View>
+            </View>
+            <View style={{gap: 20, backgroundColor: colors.green200, padding: 20, borderRadius: 10, marginTop: 20}}>
+                <StyledText>Resenias escritas: 23</StyledText>
+                <StyledText>Likes dados: 1234</StyledText>
+                <StyledText>Likes recibidos: 4292</StyledText>
+                <StyledText>Comentarios escritos: 123</StyledText>
+                <StyledText>Comentarios recibidos: 331</StyledText>
+            </View>
         </StyledScreenWrapper>
     )
 }

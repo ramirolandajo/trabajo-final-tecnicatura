@@ -1,31 +1,33 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {StyledText} from "../styledComponents/StyledText";
-import StyledScreenWrapper from "../styledComponents/StyledScreenWrapper";
+import {StyleSheet, View} from 'react-native';
+import StyledText from "../styledComponents/StyledText";
+import {colors} from "../global/colors";
 
-export default function Notificacion({user,msj}){
-    return(
-        <StyledScreenWrapper>
+export default function Notificacion({user, msj}) {
+    return (
+        <View style={styles.conteiner}>
             <View style={styles.notificacion}>
-                <Text style={styles.texto}>{user}</Text>
-
-                <Text style={styles.texto}>{msj}</Text>
+                <StyledText bold size20>{user}</StyledText>
+                <StyledText size20>{msj}</StyledText>
             </View>
-        </StyledScreenWrapper>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    notificacion: {
-        flexDirection: "row",
-        paddingTop:10,
-        paddingBottom:10,
-        borderTopWidth:2,
-        borderBottomWidth: 2
+    conteiner: {
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderTopColor: colors.green300,
+        borderBottomColor: colors.green300,
+        paddingVertical: 10
     },
-
-    texto:{
-        fontSize: 15,
-
+    notificacion: {
+        gap: 10,
+        height: 70,
+        justifyContent: "center",
+        backgroundColor: colors.green200,
+        padding: 16,
+        borderRadius: 10
     }
 })

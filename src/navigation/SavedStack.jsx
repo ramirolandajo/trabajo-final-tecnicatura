@@ -10,7 +10,7 @@ export default function SavedStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen
-                name={"Pin"}
+                name={"SavedScreen"}
                 component={SavedScreen}
                 options={{
                     header: () => <MainHeader/>

@@ -29,7 +29,6 @@ export default function GenerarReseniaScreen({navigation}) {
             let resultFile = await ImagePicker.launchImageLibraryAsync({
                 allowsEditing: true,
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
-                aspect: [9, 16],
                 base64: true,
                 quality: 1,
             });
@@ -185,7 +184,7 @@ export default function GenerarReseniaScreen({navigation}) {
                                                             style={{marginTop: 10, marginLeft: 10}}/>
                                 </Pressable>
                                 {imagen ? (
-                                    <Image source={{uri: imagen}} style={{height: 250, width: 250}}/>
+                                    <Image source={{uri: imagen}} style={{height: 250, width: 250, resizeMode: "contain"}}/>
                                 ) : null}
                             </View>
                         </StyledScreenWrapper>
