@@ -13,8 +13,8 @@ export default function SecondaryHeader() {
     const dispatch = useDispatch();
 
     async function onLogout() {
-        dispatch(logout());
         await deleteSession({localId});
+        dispatch(logout());
     }
 
     return (

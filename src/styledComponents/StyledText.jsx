@@ -3,7 +3,7 @@ import React from 'react'
 import {colors} from "../global/colors";
 
 export default function StyledText({
-    children, letters_spaced, dark_green, light_green, capitalized, size16, size14, size20, size24, size28, size30, size36, numberOfLines, bold, semi_bold, style}) {
+    children, letters_spaced, dark_green, light_green, capitalized, size16, size14, size20, size28, size30, size36, numberOfLines, bold, semi_bold, style}) {
     const textStyle = [
         styles.general,
         light_green && styles.light_green,
@@ -15,7 +15,6 @@ export default function StyledText({
         size14 && styles.size14,
         size16 && styles.size16,
         size20 && styles.size20,
-        size24 && styles.size24,
         size28 && styles.size28,
         size30 && styles.size30,
         size36 && styles.size36

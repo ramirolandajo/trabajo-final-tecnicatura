@@ -8,7 +8,7 @@ export default function ErrorMessage({errorCode, errorMessage}) {
                 Error code: {errorCode}
             </StyledText>
             <StyledText capitalized>
-                {errorMessage.split("_").join(" ")}
+                {errorMessage}
             </StyledText>
         </>
     )

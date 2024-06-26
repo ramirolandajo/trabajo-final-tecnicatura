@@ -1,0 +1,1 @@
+export const base_url = "https://trabajo-final-tecnicatura-default-rtdb.firebaseio.com/"
