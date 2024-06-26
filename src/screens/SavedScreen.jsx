@@ -1,4 +1,4 @@
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native'
+import {FlatList, StyleSheet} from 'react-native'
 import React, {useCallback, useEffect, useState} from 'react'
 import StyledScreenWrapper from "../styledComponents/StyledScreenWrapper";
 import {useGetSavedReseniasQuery} from "../services/userService";
@@ -15,11 +15,15 @@ export default function SavedScreen({navigation}) {
     useFocusEffect(
         useCallback(() => {
             refetch()
-        },[])
+        }, [])
     )
 
     useEffect(() => {
-        setSavedReseniasData(Object.values(savedResenias))
+        if (savedResenias) {
+            setSavedReseniasData(Object.values(savedResenias))
+            console.log(savedResenias)
+            console.log(savedReseniasData)
+        }
     }, [savedResenias]);
 
     return (
@@ -28,9 +32,9 @@ export default function SavedScreen({navigation}) {
             <FlatList
                 data={savedReseniasData}
                 renderItem={({item}) => (
-                <ReseniaCard resenia={item}/>
+                    <ReseniaCard resenia={item}/>
                 )}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.cuerpo}
             />
         </StyledScreenWrapper>
     )
