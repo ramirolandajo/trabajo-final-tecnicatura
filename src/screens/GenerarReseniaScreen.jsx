@@ -43,7 +43,6 @@ export default function GenerarReseniaScreen({navigation}) {
 
     function handleSubmit() {
         const puntajeGeneral = ((puntajePlatos + puntajeAmbientaciones + puntajeAtencion + puntajeHigiene + puntajeSeguridad) / 5)
-        console.log("Puntaje: " + puntajeGeneral)
         const resenia = {
             user,
             localId,

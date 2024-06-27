@@ -21,8 +21,6 @@ export default function SavedScreen({navigation}) {
     useEffect(() => {
         if (savedResenias) {
             setSavedReseniasData(Object.values(savedResenias))
-            console.log(savedResenias)
-            console.log(savedReseniasData)
         }
     }, [savedResenias]);
 

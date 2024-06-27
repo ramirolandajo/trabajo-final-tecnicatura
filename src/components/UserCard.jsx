@@ -15,7 +15,6 @@ export default function UserCard({user}) {
         }
     }, [data])
 
-    console.log(user)
     return (
         <View style={styles.container}>
             <View style={styles.userContainer}>

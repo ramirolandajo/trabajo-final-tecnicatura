@@ -5,7 +5,7 @@ import StyledText from "../styledComponents/StyledText";
 import InputForm from "../components/InputForm";
 import StyledButton from "../styledComponents/StyledButton";
 import {useDispatch} from "react-redux";
-import {setUser} from "../features/auth/authSlice";
+import {setUser, setUserData} from "../features/auth/authSlice";
 import {usePostUserMutation} from "../services/userService";
 import ErrorMessage from "../components/ErrorMessage";
 
@@ -28,7 +28,8 @@ export default function UserFormScreen({navigation, route}) {
             setGlobalError(true)
         }
         if (result.data) {
-            dispatch(setUser({email, idToken, localId, nombreCompleto, nombreUsuario}));
+            dispatch(setUser({email, idToken, localId}));
+            dispatch(setUserData({nombreCompleto, nombreUsuario}))
         }
     }, [result]);
 

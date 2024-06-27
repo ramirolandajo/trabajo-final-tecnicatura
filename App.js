@@ -7,7 +7,6 @@ import {dropTable, init} from "./src/db";
 
 init()
     .catch((err) => {
-        console.log("Error: ")
         console.log(err);
     })
 
